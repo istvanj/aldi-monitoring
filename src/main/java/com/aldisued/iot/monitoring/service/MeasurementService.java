@@ -2,9 +2,11 @@ package com.aldisued.iot.monitoring.service;
 
 import com.aldisued.iot.monitoring.entity.SensorType;
 import com.aldisued.iot.monitoring.repository.SensorReadingRepository;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,9 +24,12 @@ public class MeasurementService {
     return List.of();
   }
 
-  public Optional<Double> getAverageTemperature(LocalDateTime from, LocalDateTime to) {
-    // TODO: Task 7
-    return Optional.empty();
-  }
+    public Optional<Double> getAverageTemperature(LocalDateTime from, LocalDateTime to) {
+        return getAverageReadingBySensorType(SensorType.TEMPERATURE, from, to);
+    }
+
+    private Optional<Double> getAverageReadingBySensorType(SensorType sensorType, LocalDateTime from, LocalDateTime to) {
+        return sensorReadingRepository.findAverageReadingBySensorTypeAndTimestampBetween(sensorType, from, to);
+    }
 
 }
