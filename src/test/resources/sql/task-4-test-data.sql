@@ -6,3 +6,4 @@ INSERT INTO alerts (id, message, timestamp, sensor_id) VALUES (4, 'Temperature a
 INSERT INTO alerts (id, message, timestamp, sensor_id) VALUES (5, 'Temperature alert 5',  '2020-06-25 23:59:58', 'e3242ea2-0514-46d3-aad8-b2012980c41c');
 
 
+INSERT INTO sensors (id, name, type) VALUES ('e3242ea2-0514-46d3-aad8-b2012980c41d', 'Temperature2 ',  'TEMPERATURE');
