@@ -21,6 +21,12 @@ public class Sensor {
   @Enumerated(EnumType.STRING)
   private SensorType type;
 
+  @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<SensorReading> sensorReadings;
+
+  @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Alert> alerts;
+
   public Sensor() {}
 
   public Sensor(String name, SensorType type) {
@@ -53,22 +59,20 @@ public class Sensor {
   }
 
   public List<Alert> getAlerts() {
-    //TODO: Task 2
-    return null;
+    return alerts;
   }
 
   public void setAlerts(List<Alert> alerts) {
-    //TODO: Task 2
+    this.alerts = alerts;
   }
 
   public List<SensorReading> getSensorReadings() {
-    //TODO: Task 2
-    return null;
+    return sensorReadings;
   }
 
   public void setSensorReadings(
       List<SensorReading> sensorReadings) {
-    //TODO: Task 2
+     this.sensorReadings = sensorReadings;
   }
 
   @Override
