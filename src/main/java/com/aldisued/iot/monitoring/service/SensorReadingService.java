@@ -18,9 +18,13 @@ public class SensorReadingService {
     this.sensorRepository = sensorRepository;
   }
 
-  public SensorReading saveSensorReading(SensorReadingDto sensorReadingDto) {
-    //TODO: Task 3
-    return null;
-  }
+    public SensorReading saveSensorReading(SensorReadingDto sensorReadingDto) {
+        var sensorOptional = sensorRepository.findById(sensorReadingDto.sensorId());
+        if (sensorOptional.isPresent()) {
+            return sensorReadingRepository.save(new SensorReading(sensorReadingDto.value(), sensorReadingDto.timestamp(), sensorOptional.get()));
+        } else {
+            return null;
+        }
+    }
 
 }
