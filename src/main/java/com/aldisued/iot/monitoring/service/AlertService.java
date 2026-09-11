@@ -2,6 +2,7 @@ package com.aldisued.iot.monitoring.service;
 
 import com.aldisued.iot.monitoring.dto.AlertDto;
 import com.aldisued.iot.monitoring.entity.Alert;
+import com.aldisued.iot.monitoring.exception.NotFoundException;
 import com.aldisued.iot.monitoring.repository.AlertRepository;
 import com.aldisued.iot.monitoring.repository.SensorRepository;
 import java.util.UUID;
@@ -28,7 +29,9 @@ public class AlertService {
   }
 
   public AlertDto findLastAlertBySensorId(UUID sensorId) {
-    // TODO: Task 5
-    return null;
+    var sensorOptional = sensorRepository.findById(sensorId).orElseThrow(() -> new NotFoundException("No sensor was found with the given id!"));
+    var lastAlert = alertRepository.findTopBySensorOrderByTimestampDesc(sensorOptional)
+            .orElseThrow(() -> new NotFoundException("No alert was found with the given sensor id!"));
+    return new AlertDto(sensorId, lastAlert.getMessage(), lastAlert.getTimestamp());
   }
 }
