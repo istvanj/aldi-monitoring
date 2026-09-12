@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
+//TODO rename script file to task-8-test-data
 @Sql(scripts = "/sql/task-7-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_CLASS)
 public class Task8Tests extends IntegrationTestBase {
 

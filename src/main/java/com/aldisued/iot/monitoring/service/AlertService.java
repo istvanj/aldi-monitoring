@@ -31,8 +31,8 @@ public class AlertService {
   }
 
   public AlertDto findLastAlertBySensorId(UUID sensorId) {
-    var sensorOptional = sensorRepository.findById(sensorId).orElseThrow(() -> new NotFoundException("No sensor was found with the given id!"));
-    var lastAlert = alertRepository.findTopBySensorOrderByTimestampDesc(sensorOptional)
+    var sensor = sensorRepository.findById(sensorId).orElseThrow(() -> new NotFoundException("No sensor was found with the given id!"));
+    var lastAlert = alertRepository.findTopBySensorOrderByTimestampDesc(sensor)
             .orElseThrow(() -> new NotFoundException("No alert was found with the given sensor id!"));
     return new AlertDto(sensorId, lastAlert.getMessage(), lastAlert.getTimestamp());
   }
