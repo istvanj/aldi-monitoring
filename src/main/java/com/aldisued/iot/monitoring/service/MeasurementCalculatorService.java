@@ -1,6 +1,7 @@
 package com.aldisued.iot.monitoring.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,8 +25,17 @@ public class MeasurementCalculatorService {
   }
 
   public List<Double> getMovingAverage(List<Double> data, int windowSize) {
-    // TODO: Task 10
-    return List.of();
+    checkInputParametersForMovingAverage(data, windowSize);
+    var nonNullValues = data.stream().filter(Objects::nonNull).toList();
+    if (nonNullValues.isEmpty()) {
+      // skip unnecessary calculation
+      return List.of();
+    }
+    var movingAverages = new ArrayList<Double>();
+    for (var i = 0; i <= nonNullValues.size() - windowSize; i++) {
+      movingAverages.add(nonNullValues.subList(i, i + windowSize).stream().mapToDouble(Double::doubleValue).average().orElse(0.0));
+    }
+    return movingAverages;
   }
 
   private void checkInputParametersForAverageDeviation(List<Double> values, Double deviation) {
@@ -42,6 +52,17 @@ public class MeasurementCalculatorService {
   private void checkListInput(List<Double> values) {
     if (values == null) {
       throw new IllegalArgumentException("List of values must not be null!");
+    }
+  }
+
+  private void checkInputParametersForMovingAverage(List<Double> values, int windowSize){
+    checkWindowSizeInput(windowSize, values.size());
+    checkListInput(values);
+  }
+
+  private void checkWindowSizeInput(int windowSize, int size){
+    if (windowSize <= 0 || windowSize > size){
+      throw new IllegalArgumentException("Window size must be between 1 and the size of the input list!");
     }
   }
 
