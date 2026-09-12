@@ -28,5 +28,17 @@ Please complete the assignment **within one week**.
 
 ---
 
+## Comments
+
+### AI usage disclaimer
+
+Only IntelliJ IDEA's full-line code completion tool was used to speed up code writing. No code was AI-generated, although AI was used in chat form to validate solution ideas and clarify details I couldn't recall.
+
+### Commit message format
+
+Commit messages were written in the format of [Conventional Commits](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13).
+
+---
+
 ## 📂 Project Structure (expected)
 
