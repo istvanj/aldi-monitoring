@@ -24,8 +24,10 @@ public class AlertService {
   }
 
   public Alert saveAlert(AlertDto alertDto) {
-    // TODO: Task 6
-    return null;
+    var sensor = sensorRepository.findById(alertDto.sensorId()).orElseThrow(() -> new NotFoundException("No sensor was found with the given id!"));
+    var savedAlert = alertRepository.save(new Alert(alertDto.message(), alertDto.timestamp(), sensor));
+    kafkaTemplate.send("alerts", alertDto);
+    return savedAlert;
   }
 
   public AlertDto findLastAlertBySensorId(UUID sensorId) {
